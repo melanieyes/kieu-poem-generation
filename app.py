@@ -14,13 +14,16 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- Inject CSS to center and style ---
+# --- Inject CSS to center, remove top padding, and style ---
 st.markdown("""
     <style>
+        .block-container {
+            padding-top: 0rem !important;
+        }
         .centered-container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 0rem 2rem 1rem 2rem;
         }
         .footer {
             text-align: center;
@@ -34,7 +37,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Preprocessing ---
+# --- Preprocessing functions ---
 def tokenize(text):
     text = unicodedata.normalize('NFC', text.lower())
     tokens = text.split()
@@ -56,7 +59,7 @@ def load_model():
 
 model, clf_vectorizer, verses, search_vectorizer, search_doc_matrix = load_model()
 
-# --- Inverted Index ---
+# --- Build Inverted Index ---
 @st.cache_resource
 def build_inverted_index(verses):
     index = defaultdict(list)
