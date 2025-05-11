@@ -125,9 +125,10 @@ with tab4:
 # --- Footer ---
 st.markdown("---")
 st.markdown(
-    "<p style='text-align:center; font-size: 0.9em;'>"
-    "🌸 Created by <b>Melanie</b> | "
-    "📧 <a href='mailto:melanieye.bui@gmail.com'>melanieye.bui@gmail.com</a>"
-    "</p>",
+    """
+    <p style='text-align: center; font-size: 0.9em;'>
+        Made by <b>Melanie</b> with ❤️
+    </p>
+    """,
     unsafe_allow_html=True
 )
