@@ -13,6 +13,22 @@ st.set_page_config(
     layout="centered"
 )
 
+# Optional: Set a light CSS background (commented out)
+# st.markdown("""
+#     <style>
+#     .stApp {
+#         background-image: url("truyen-kieu.jpg");
+#         background-size: cover;
+#         background-repeat: no-repeat;
+#         background-attachment: fixed;
+#         background-position: center;
+#     }
+#     </style>
+# """, unsafe_allow_html=True)
+
+# Add banner at top
+st.image("truyen-kieu.jpg", use_column_width=True)
+
 # Sidebar credit
 st.sidebar.markdown("### 👩‍💻 Built with ❤️ by Melanie")
 st.sidebar.markdown("*An AI project exploring the beauty of Nguyễn Du’s Truyện Kiều*")
