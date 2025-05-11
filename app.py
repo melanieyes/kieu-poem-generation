@@ -3,6 +3,7 @@ import pickle
 import unicodedata
 import re
 import string
+from PIL import Image
 from sklearn.metrics.pairwise import cosine_similarity
 from collections import defaultdict
 
@@ -29,8 +30,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# --- Display banner image ---
-st.image("truyen-kieu.jpg", use_container_width=True)
+# --- Display resized banner image ---
+img = Image.open("truyen-kieu.jpg")
+st.image(img, width=800)  # Adjust width if needed (600–1000 range works well)
 
 # --- Preprocessing functions ---
 def tokenize(text):
