@@ -13,25 +13,24 @@ st.set_page_config(
     layout="centered"
 )
 
-# Optional: Set a light CSS background (commented out)
-# st.markdown("""
-#     <style>
-#     .stApp {
-#         background-image: url("truyen-kieu.jpg");
-#         background-size: cover;
-#         background-repeat: no-repeat;
-#         background-attachment: fixed;
-#         background-position: center;
-#     }
-#     </style>
-# """, unsafe_allow_html=True)
+# --- Inject CSS to hide sidebar and tighten layout ---
+st.markdown(
+    """
+    <style>
+        [data-testid="stSidebar"] {
+            display: none;
+        }
+        .block-container {
+            padding-top: 1rem;
+            padding-bottom: 2rem;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-# Add banner at top
-st.image("truyen-kieu.jpg", use_column_width=True)
-
-# Sidebar credit
-st.sidebar.markdown("### 👩‍💻 Built with ❤️ by Melanie")
-st.sidebar.markdown("*An AI project exploring the beauty of Nguyễn Du’s Truyện Kiều*")
+# --- Display banner image ---
+st.image("truyen-kieu.jpg", use_container_width=True)
 
 # --- Preprocessing functions ---
 def tokenize(text):
@@ -67,7 +66,7 @@ def build_inverted_index(verses):
 
 inverted_index = build_inverted_index(verses)
 
-# --- UI ---
+# --- Title and Tabs ---
 st.title("✨ Truyện Kiều Verse Search & Authorship Classifier")
 
 tab1, tab2, tab3, tab4 = st.tabs([
