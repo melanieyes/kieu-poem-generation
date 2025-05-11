@@ -3,35 +3,35 @@ import pickle
 import unicodedata
 import re
 import string
+from PIL import Image
 from sklearn.metrics.pairwise import cosine_similarity
 from collections import defaultdict
 
-# Set custom page configuration
+# --- Page configuration ---
 st.set_page_config(
     page_title="Truyện Kiều Search & Authorship Prediction",
     page_icon="🌸",
     layout="centered"
 )
 
-# Optional: Set a light CSS background (commented out)
-# st.markdown("""
-#     <style>
-#     .stApp {
-#         background-image: url("truyen-kieu.jpg");
-#         background-size: cover;
-#         background-repeat: no-repeat;
-#         background-attachment: fixed;
-#         background-position: center;
-#     }
-#     </style>
-# """, unsafe_allow_html=True)
+# --- Inject CSS to remove sidebar and style footer ---
+st.markdown("""
+    <style>
+        [data-testid="stSidebar"] {
+            display: none;
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 2rem;
+            color: #999;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-# Add banner at top
-st.image("truyen-kieu.jpg", use_column_width=True)
-
-# Sidebar credit
-st.sidebar.markdown("### 👩‍💻 Built with ❤️ by Melanie")
-st.sidebar.markdown("*An AI project exploring the beauty of Nguyễn Du’s Truyện Kiều*")
+# --- Display resized image banner ---
+img = Image.open("truyen-kieu.jpg")
+st.image(img, width=500)  # Adjust size to your preference
 
 # --- Preprocessing functions ---
 def tokenize(text):
@@ -67,7 +67,7 @@ def build_inverted_index(verses):
 
 inverted_index = build_inverted_index(verses)
 
-# --- UI ---
+# --- Main UI ---
 st.title("✨ Truyện Kiều Verse Search & Authorship Classifier")
 
 tab1, tab2, tab3, tab4 = st.tabs([
@@ -124,11 +124,8 @@ with tab4:
             st.warning("No matching verses found.")
 
 # --- Footer ---
-st.markdown("---")
+st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown(
-    "<p style='text-align:center; font-size: 0.9em;'>"
-    "🌸 Created by <b>Melanie</b> | "
-    "📧 <a href='mailto:melanieye.bui@gmail.com'>melanieye.bui@gmail.com</a>"
-    "</p>",
+    "<div class='footer'>An AI project exploring the beauty of Nguyễn Du’s <i>Truyện Kiều</i></div>",
     unsafe_allow_html=True
 )
