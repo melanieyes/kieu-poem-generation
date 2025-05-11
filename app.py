@@ -13,24 +13,44 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- Inject CSS to hide sidebar and tighten layout ---
+# --- Inject Custom CSS ---
 st.markdown(
     """
     <style>
+        /* Hide sidebar */
         [data-testid="stSidebar"] {
             display: none;
         }
+
+        /* Background color and layout */
+        .stApp {
+            background-color: #fdf6e3; /* parchment yellow */
+            font-family: 'Georgia', serif;
+        }
+
         .block-container {
             padding-top: 1rem;
             padding-bottom: 2rem;
         }
+
+        /* Banner image style */
+        .banner-img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 12px;
+            width: auto;
+            max-width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
     </style>
+
+    <!-- Insert Banner -->
+    <img src="truyen-kieu.jpg" class="banner-img" alt="Truyện Kiều Banner">
     """,
     unsafe_allow_html=True
 )
-
-# --- Display banner image ---
-st.image("truyen-kieu.jpg", use_container_width=True)
 
 # --- Preprocessing functions ---
 def tokenize(text):
