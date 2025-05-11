@@ -9,7 +9,7 @@ from collections import defaultdict
 
 # --- Page setup ---
 st.set_page_config(
-    page_title="Truyện Kiều Search & Authorship Prediction",
+    page_title="Truyện Kiều Search & Authorship Classification",
     page_icon="🌸",
     layout="wide"
 )
@@ -77,7 +77,7 @@ with st.container():
 
     with col1:
         st.markdown('<div class="image-col">', unsafe_allow_html=True)
-        img = Image.open("truyenkieu.jpg")
+        img = Image.open("truyen_kieu.jpg")
         st.image(img, caption=None, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
