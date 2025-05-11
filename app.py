@@ -136,11 +136,15 @@ with st.container():
             else:
                 st.warning("No matching verses found.")
 
-    # --- Footer ---
-    st.markdown("<hr>", unsafe_allow_html=True)
-    st.markdown(
-        "<div class='footer'>An AI project exploring the beauty of Nguyễn Du’s <i>Truyện Kiều</i></div>",
-        unsafe_allow_html=True
-    )
-
-    st.markdown('</div>', unsafe_allow_html=True)
+   # --- Footer ---
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div class='footer'>
+        An AI project exploring the beauty of Nguyễn Du’s <i>Truyện Kiều</i><br>
+        Made by <b>Melanie</b> with ❤️
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+st.markdown('</div>', unsafe_allow_html=True)
