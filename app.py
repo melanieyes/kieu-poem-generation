@@ -45,7 +45,7 @@ col1, col2 = st.columns([2, 3], gap="large")
 
 with col1:
     st.markdown(
-        '<div class="image-box"><img src="truyenkieu.jpg" width="480"></div>',
+        '<div class="image-box"><img src="truyenkieu.jpg" width="450"></div>',
         unsafe_allow_html=True
     )
 
