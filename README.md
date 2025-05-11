@@ -6,7 +6,7 @@ This project applies Artificial Intelligence techniques to Vietnamese classical 
 
 ## 🔗 Live Demo
 
-👉 [Try the Streamlit App](https://master-77ujvbqhvxmw2yrndstdjx.streamlit.app/)  
+👉 [Try the Streamlit App](https://truyen-kieu-poem-generation-melanie.streamlit.app/)  
 Interactively search verses, classify authorship, and explore Vietnamese poetic structure.
 
 ---
