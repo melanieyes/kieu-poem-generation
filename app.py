@@ -31,7 +31,7 @@ st.markdown(
 )
 
 # --- Display resized banner image ---
-img = Image.open("truyen-kieu.jpg")
+img = Image.open("truyen_kieu.jpg")
 st.image(img, width=800)  # Adjust width if needed (600–1000 range works well)
 
 # --- Preprocessing functions ---
