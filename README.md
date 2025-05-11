@@ -1,3 +1,14 @@
+# Truyện Kiều AI Project
+
+This project applies Artificial Intelligence techniques to Vietnamese classical literature, focusing on Nguyễn Du's *Truyện Kiều*. It combines natural language processing, machine learning, and multimodal exploration to analyze, classify, and interact with poetic verses.
+
+---
+
+## 🔗 Live Demo
+
+👉 [Try the Streamlit App](https://master-77ujvbqhvxmw2yrndstdjx.streamlit.app/)  
+Interactively search verses, classify authorship, and explore Vietnamese poetic structure.
+
 ---
 
 ## 🔍 Features
@@ -13,7 +24,7 @@
 - Implemented in `task2_kieu_generation.ipynb`.
 - Two approaches:
   - From-scratch Transformer model (PyTorch)
-  - Fine-tuned Vietnamese GPT-2 (`danghuy1999/gpt2-viwiki`)
+  - Fine-tuned GPT-2 (`danghuy1999/gpt2-viwiki`)
 - Includes tone-checking and formatting to preserve **lục bát** poetic structure.
 
 ### 3. **Multimodal AI (Gemini Experiments)**
@@ -23,15 +34,8 @@
 
 ---
 
-## 🌐 Live Demo
-
-You can try the Streamlit app here:  
-👉 **[https://master-77ujvbqhvxmw2yrndstdjx.streamlit.app/](https://master-77ujvbqhvxmw2yrndstdjx.streamlit.app/)**
-
----
-
 ## 🧪 How to Run Locally
 
-### Search & Classifier:
+### 1. Launch the App:
 ```bash
-python app.py  # Launches Streamlit interface for verse search and authorship classification
+streamlit run app.py
