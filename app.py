@@ -14,7 +14,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- Inject CSS to center content and style footer ---
+# --- Inject CSS to center and style ---
 st.markdown("""
     <style>
         .centered-container {
@@ -34,7 +34,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Preprocessing functions ---
+# --- Preprocessing ---
 def tokenize(text):
     text = unicodedata.normalize('NFC', text.lower())
     tokens = text.split()
@@ -56,7 +56,7 @@ def load_model():
 
 model, clf_vectorizer, verses, search_vectorizer, search_doc_matrix = load_model()
 
-# --- Build Inverted Index ---
+# --- Inverted Index ---
 @st.cache_resource
 def build_inverted_index(verses):
     index = defaultdict(list)
@@ -67,18 +67,20 @@ def build_inverted_index(verses):
 
 inverted_index = build_inverted_index(verses)
 
-# --- Main Centered UI Layout ---
+# --- Layout ---
 with st.container():
     st.markdown('<div class="centered-container">', unsafe_allow_html=True)
 
-    # Banner Image
-    img = Image.open("truyen-kieu.jpg")
-    st.image(img, width=600)
+    # Centered Image
+    col_img = st.columns([1, 2, 1])[1]
+    with col_img:
+        img = Image.open("truyen-kieu.jpg")
+        st.image(img, width=600)
 
     # Title
-    st.title("✨ Truyện Kiều Search & Authorship Classifier")
+    st.title("✨ Truyện Kiều Verse Search & Authorship Classifier")
 
-    # --- Tabs UI ---
+    # --- Tabs ---
     tab1, tab2, tab3, tab4 = st.tabs([
         "🧠 Classify Verse",
         "📐 Search by Cosine",
@@ -86,7 +88,7 @@ with st.container():
         "📚 Inverted Index"
     ])
 
-    # --- Tab 1: Author Classifier ---
+    # --- Tab 1: Classify ---
     with tab1:
         verse_input = st.text_input("✍️ Input a verse to predict the author:")
         if verse_input:
@@ -94,3 +96,48 @@ with st.container():
             pred = model.predict(features)[0]
             prob = model.predict_proba(features)[0][pred]
             label = "Nguyễn Du" if pred == 1 else "Other Author"
+            st.success(f"Prediction: **{label}** ({prob:.2%} confidence)")
+
+    # --- Tab 2: Cosine Similarity ---
+    with tab2:
+        query = st.text_input("🔍 Search by cosine similarity:")
+        if query:
+            query_vec = search_vectorizer.transform([preprocess_text(query)])
+            sims = cosine_similarity(query_vec, search_doc_matrix).flatten()
+            top_ids = sims.argsort()[-5:][::-1]
+            st.write("📌 Top matching verses:")
+            for i in top_ids:
+                st.markdown(f"- _{verses[i]}_  \nScore: **{sims[i]:.2f}**")
+
+    # --- Tab 3: Overlap ---
+    with tab3:
+        overlap_query = st.text_input("🔠 Search by word overlap:")
+        if overlap_query:
+            query_tokens = set(tokenize(overlap_query))
+            scores = [(i, len(query_tokens & set(tokenize(v)))) for i, v in enumerate(verses)]
+            top = sorted(scores, key=lambda x: x[1], reverse=True)[:5]
+            st.write("📌 Top matching verses:")
+            for i, score in top:
+                st.markdown(f"- _{verses[i]}_  \nOverlap: **{score}**")
+
+    # --- Tab 4: Inverted Index ---
+    with tab4:
+        keyword = st.text_input("📖 Find all verses containing a word:")
+        if keyword:
+            word = keyword.strip().lower()
+            results = inverted_index.get(word, [])
+            if results:
+                st.write(f"✅ Found in {len(results)} verse(s):")
+                for idx in results[:10]:
+                    st.markdown(f"- _{verses[idx]}_")
+            else:
+                st.warning("No matching verses found.")
+
+    # --- Footer ---
+    st.markdown("<hr>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='footer'>An AI project exploring the beauty of Nguyễn Du’s <i>Truyện Kiều</i></div>",
+        unsafe_allow_html=True
+    )
+
+    st.markdown('</div>', unsafe_allow_html=True)
