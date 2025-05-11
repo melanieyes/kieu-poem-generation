@@ -11,7 +11,7 @@ from collections import defaultdict
 st.set_page_config(
     page_title="Truyện Kiều Search & Authorship Prediction",
     page_icon="🌸",
-    layout="centered"
+    layout="wide"  # use "wide" for better side-by-side spacing
 )
 
 # --- Inject CSS to hide sidebar and tighten layout ---
@@ -30,9 +30,15 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# --- Display resized banner image ---
-img = Image.open("truyenkieu.jpg")
-st.image(img, width=600)  # Adjust width if needed (600–1000 range works well)
+# --- Side-by-side layout: image left, content right ---
+col1, col2 = st.columns([1, 2])  # 1:2 ratio
+
+with col1:
+    img = Image.open("truyenkieu.jpg")
+    st.image(img, width=300)
+
+with col2:
+    st.title("✨ Truyện Kiều Verse Search & Authorship Classifier")
 
 # --- Preprocessing functions ---
 def tokenize(text):
@@ -68,9 +74,7 @@ def build_inverted_index(verses):
 
 inverted_index = build_inverted_index(verses)
 
-# --- Title and Tabs ---
-st.title("✨ Truyện Kiều Verse Search & Authorship Classifier")
-
+# --- Tabs ---
 tab1, tab2, tab3, tab4 = st.tabs([
     "🧠 Classify Verse",
     "📐 Search by Cosine",
