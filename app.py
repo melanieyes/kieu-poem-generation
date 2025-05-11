@@ -14,28 +14,42 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- Hide sidebar and style layout ---
+# --- Inject CSS for layout and image styling ---
 st.markdown("""
     <style>
         [data-testid="stSidebar"] { display: none; }
         .block-container { padding-top: 1rem; padding-bottom: 2rem; }
-        .left-col img {
+
+        .image-box {
+            padding-top: 10px;
+            padding-right: 20px;
+        }
+
+        .image-box img {
             border-radius: 12px;
+            max-width: 100%;
+            height: auto;
             object-fit: cover;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            padding-top: 2rem;
         }
     </style>
 """, unsafe_allow_html=True)
 
-# --- Layout: Large left image, right-side content ---
-left, right = st.columns([2, 3], gap="large")
+# --- Layout: Left image, right content ---
+col1, col2 = st.columns([2, 3], gap="large")
 
-with left:
-    st.markdown('<div class="left-col">', unsafe_allow_html=True)
-    img = Image.open("truyenkieu.jpg")
-    st.image(img, use_column_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+with col1:
+    st.markdown(
+        '<div class="image-box"><img src="truyenkieu.jpg" width="480"></div>',
+        unsafe_allow_html=True
+    )
 
-with right:
+with col2:
     st.title("✨ Truyện Kiều Verse Search & Authorship Classifier")
 
     tab1, tab2, tab3, tab4 = st.tabs([
@@ -93,7 +107,7 @@ with right:
             else:
                 st.warning("No matching verses found.")
 
-# --- Preprocessing + Model Loader (after layout for clarity) ---
+# --- Utility functions ---
 def tokenize(text):
     text = unicodedata.normalize('NFC', text.lower())
     tokens = text.split()
@@ -122,12 +136,4 @@ def build_inverted_index(verses):
 inverted_index = build_inverted_index(verses)
 
 # --- Footer ---
-st.markdown("---")
-st.markdown(
-    """
-    <p style='text-align: center; font-size: 0.9em;'>
-        Made by <b>Melanie</b> with ❤️
-    </p>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("<div class='footer'>Made by <b>Melanie</b> with ❤️</div>", unsafe_allow_html=True)
