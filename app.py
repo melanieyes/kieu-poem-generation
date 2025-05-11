@@ -113,7 +113,7 @@ st.markdown(
     "<p style='text-align:center; font-size: 0.9em;'>"
     "🌸 Created by <b>Melanie</b> | "
     "<a href='https://github.com/melanieyes/kieu-poem-generation' target='_blank'>GitHub</a> | "
-    "📧 <a href='mailto:melanie@example.com'>Contact</a>"
+    "📧 <a href='mailto:melanieye.bui@gmail.com'>Contact</a>"
     "</p>",
     unsafe_allow_html=True
 )
