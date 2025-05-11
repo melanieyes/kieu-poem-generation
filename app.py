@@ -31,8 +31,8 @@ st.markdown(
 )
 
 # --- Display resized banner image ---
-img = Image.open("truyen_kieu.jpg")
-st.image(img, width=800)  # Adjust width if needed (600–1000 range works well)
+img = Image.open("truyenkieu.jpg")
+st.image(img, width=600)  # Adjust width if needed (600–1000 range works well)
 
 # --- Preprocessing functions ---
 def tokenize(text):
