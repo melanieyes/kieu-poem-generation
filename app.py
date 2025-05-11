@@ -13,35 +13,24 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- Inject CSS to resize image and hide sidebar ---
+# --- Inject CSS to hide sidebar and tighten layout ---
 st.markdown(
     """
     <style>
         [data-testid="stSidebar"] {
             display: none;
         }
-
         .block-container {
             padding-top: 1rem;
             padding-bottom: 2rem;
         }
-
-        .banner-img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            border-radius: 12px;
-            width: auto;
-            max-width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
     </style>
-
-    <img src="truyen-kieu.jpg" class="banner-img" alt="Truyện Kiều Banner">
     """,
     unsafe_allow_html=True
 )
+
+# --- Display banner image ---
+st.image("truyen-kieu.jpg", use_container_width=True)
 
 # --- Preprocessing functions ---
 def tokenize(text):
