@@ -107,7 +107,7 @@ with st.container():
         if query:
             query_vec = search_vectorizer.transform([preprocess_text(query)])
             sims = cosine_similarity(query_vec, search_doc_matrix).flatten()
-            top_ids = sims.argsort()[::-1]
+            top_ids = sims.argsort()[-5:][::-1]
             st.write("📌 Top matching verses:")
             for i in top_ids:
                 st.markdown(f"- _{verses[i]}_  \nScore: **{sims[i]:.2f}**")
@@ -118,7 +118,7 @@ with st.container():
         if overlap_query:
             query_tokens = set(tokenize(overlap_query))
             scores = [(i, len(query_tokens & set(tokenize(v)))) for i, v in enumerate(verses)]
-            top = sorted(scores, key=lambda x: x[1], reverse=True)
+            top = sorted(scores, key=lambda x: x[1], reverse=True)[:5]
             st.write("📌 Top matching verses:")
             for i, score in top:
                 st.markdown(f"- _{verses[i]}_  \nOverlap: **{score}**")
@@ -131,20 +131,21 @@ with st.container():
             results = inverted_index.get(word, [])
             if results:
                 st.write(f"✅ Found in {len(results)} verse(s):")
-                for idx in results:
+                for idx in results[:10]:
                     st.markdown(f"- _{verses[idx]}_")
             else:
                 st.warning("No matching verses found.")
 
-   # --- Footer ---
-st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown(
-    """
-    <div class='footer'>
-        An AI project exploring the beauty of Nguyễn Du’s <i>Truyện Kiều</i><br>
-        Made by <b>Melanie</b> with ❤️
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-st.markdown('</div>', unsafe_allow_html=True)
+    # --- Footer ---
+    st.markdown("<hr>", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class='footer'>
+            An AI project exploring the beauty of Nguyễn Du’s <i>Truyện Kiều</i><br>
+            Made by <b>Melanie</b> with ❤️
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown('</div>', unsafe_allow_html=True)
