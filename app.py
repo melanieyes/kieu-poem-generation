@@ -108,7 +108,8 @@ with st.container():
             query_vec = search_vectorizer.transform([preprocess_text(query)])
             sims = cosine_similarity(query_vec, search_doc_matrix).flatten()
             top_ids = sims.argsort()[-5:][::-1]
-            st.write("📌 Top matching verses (showing first 5):")
+            st.write("📌 Top matching verses:")
+            st.markdown("_Only the first 5 matching verses are shown below:_")
             for i in top_ids:
                 st.markdown(f"- _{verses[i]}_  \nScore: **{sims[i]:.2f}**")
 
@@ -119,7 +120,8 @@ with st.container():
             query_tokens = set(tokenize(overlap_query))
             scores = [(i, len(query_tokens & set(tokenize(v)))) for i, v in enumerate(verses)]
             top = sorted(scores, key=lambda x: x[1], reverse=True)[:5]
-            st.write("📌 Top matching verses (showing first 5):")
+            st.write("📌 Top matching verses:")
+            st.markdown("_Only the first 5 matching verses are shown below:_")
             for i, score in top:
                 st.markdown(f"- _{verses[i]}_  \nOverlap: **{score}**")
 
