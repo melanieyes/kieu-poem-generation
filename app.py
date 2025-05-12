@@ -131,7 +131,8 @@ with st.container():
             results = inverted_index.get(word, [])
             if results:
                 st.write(f"✅ Found in {len(results)} verse(s):")
-                for idx in results[:10]:
+                # for idx in results[:10]:
+                for idx in results:
                     st.markdown(f"- _{verses[idx]}_")
             else:
                 st.warning("No matching verses found.")
