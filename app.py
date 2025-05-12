@@ -14,7 +14,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- Inject CSS to center, remove top padding, and style ---
+# --- Inject CSS ---
 st.markdown("""
     <style>
         .block-container {
@@ -108,7 +108,7 @@ with st.container():
             query_vec = search_vectorizer.transform([preprocess_text(query)])
             sims = cosine_similarity(query_vec, search_doc_matrix).flatten()
             top_ids = sims.argsort()[-5:][::-1]
-            st.write("📌 Top matching verses:")
+            st.write("📌 Top matching verses (showing first 5):")
             for i in top_ids:
                 st.markdown(f"- _{verses[i]}_  \nScore: **{sims[i]:.2f}**")
 
@@ -119,7 +119,7 @@ with st.container():
             query_tokens = set(tokenize(overlap_query))
             scores = [(i, len(query_tokens & set(tokenize(v)))) for i, v in enumerate(verses)]
             top = sorted(scores, key=lambda x: x[1], reverse=True)[:5]
-            st.write("📌 Top matching verses:")
+            st.write("📌 Top matching verses (showing first 5):")
             for i, score in top:
                 st.markdown(f"- _{verses[i]}_  \nOverlap: **{score}**")
 
@@ -131,6 +131,7 @@ with st.container():
             results = inverted_index.get(word, [])
             if results:
                 st.write(f"✅ Found in {len(results)} verse(s):")
+                st.markdown("_Only the first 10 matching verses are shown below:_")
                 for idx in results[:10]:
                     st.markdown(f"- _{verses[idx]}_")
             else:
