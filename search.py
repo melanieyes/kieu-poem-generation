@@ -6,12 +6,13 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 def preprocess_text(text):
     text = unicodedata.normalize('NFC', text.lower())
-    text = re.sub(r'^\d+[.:]*\s*', '', text)
+    text = re.sub(r'^\d+[.:,]*\s*', '', text)
+    text = re.sub(r'[{}]'.format(re.escape(string.punctuation)), '', text)
     return re.sub(r'\s+', ' ', text).strip()
 
 def tokenize(text):
     text = preprocess_text(text)
-    return [t.strip(string.punctuation) for t in text.split() if t.strip(string.punctuation)]
+    return [t for t in text.split() if t]
 
 def search_by_cosine(query, verses, vectorizer, doc_matrix, top_k=5):
     query_vec = vectorizer.transform([preprocess_text(query)])

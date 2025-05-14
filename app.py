@@ -38,14 +38,15 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Preprocessing functions ---
-def tokenize(text):
-    text = unicodedata.normalize('NFC', text.lower())
-    tokens = text.split()
-    return [t.strip(string.punctuation) for t in tokens if t.strip(string.punctuation)]
-
 def preprocess_text(text):
-    return re.sub(r'\s+', ' ', unicodedata.normalize('NFC', text.lower())).strip()
+    text = unicodedata.normalize('NFC', text.lower())
+    text = re.sub(r'^\d+[.:,]*\s*', '', text)  # remove leading numbers like "1.."
+    text = re.sub(r'[{}]'.format(re.escape(string.punctuation)), '', text)  # remove all punctuation
+    return re.sub(r'\s+', ' ', text).strip()
 
+def tokenize(text):
+    text = preprocess_text(text)
+    return [t for t in text.split() if t]
 # --- Load Model & Data ---
 @st.cache_resource
 def load_model():
